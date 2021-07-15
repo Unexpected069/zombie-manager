@@ -9,9 +9,9 @@ To run this project, you need to add the back-end and front-end dependencies. In
 
 $ npm install
 
-Then, navigate to the zombie-manager directory
+Then, navigate to the client directory
 
-$ cd zombie-manager
+$ cd client
 
 and run the following command:
 
