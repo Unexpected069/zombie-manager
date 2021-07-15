@@ -13,3 +13,14 @@ Then, navigate to the zombie-manager directory
 
 $ cd zombie-manager
 
+and run the following command:
+
+$ npm install
+
+To run the android
+
+npx react-native run-android
+
+To run the ios
+
+npx react-native run-ios --simulator="nameofyoursimulator"
