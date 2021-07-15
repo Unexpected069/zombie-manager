@@ -1,1 +1,27 @@
 
+{
+  "name": "nodejswithgql",
+  "version": "1.0.0",
+  "description": "node js with graphql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Unexpected069/zombie-manager.git"
+  },
+  "author": "WalterMata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Unexpected069/zombie-manager/issues"
+  },
+  "homepage": "https://github.com/Unexpected069/zombie-manager#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.8.0",
+    "graphql": "^15.5.1",
+    "lodash": "^4.17.11"
+  }
+}
