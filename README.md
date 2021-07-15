@@ -8,3 +8,8 @@ We've got the zombies under control, but we need to keep track of them. That's w
 To run this project, you need to add the back-end and front-end dependencies. In the root of the project server, run the following command:
 
 $ npm install
+
+Then, navigate to the zombie-manager directory
+
+$ cd zombie-manager
+
