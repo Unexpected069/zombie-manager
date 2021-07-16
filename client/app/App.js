@@ -12,7 +12,7 @@ import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 
 
-const client = new ApolloClient({ uri: 'http://192.168.1.2:4800/graphql' });
+const client = new ApolloClient({ uri: 'http://YOURIPADDRESS:4800/graphql' });
 
 
 const App=()=>{
