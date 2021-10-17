@@ -36,8 +36,3 @@ npx react-native run-android
 To run the ios
 
 npx react-native run-ios --simulator="nameofyoursimulator"
-
-Fill out your own ip address or localhost
-const client = new ApolloClient({ uri: 'http://YOURIPADDRESS:4800/graphql' });
-
-File located at client/app/App.js line number 15.
