@@ -2,20 +2,19 @@
 import React ,{useEffect,useContext, useState,}from 'react';
 import { StyleSheet,View,FlatList,Text, TouchableOpacity, Alert} from "react-native";
 import ModalComponent from '../component/ModalComponent';
-import UserContext from '../context/userContext';
-import { ApolloProvider, Query, useQuery,useMutation } from "react-apollo";
+import AppContext from '../context/AppContext';
+import {useQuery,useMutation } from "react-apollo";
 import { zombiesQuaratineLocation } from '../data/dummydata';
 import { GET_ZOMBIES, UPDATE_ZOMBIES } from '../data/api';
 
 
-
-
 const List=({route,navigation})=>{
-    const context=useContext(UserContext);
+
+    const {zombies,dispatch}=useContext(AppContext);
     const [modal,showModal]=useState(false);
     const [getId,setId]=useState(0);
     const {facility}=route.params!=undefined?route.params:'';
-    const  {status, data, error, refetch}  = useQuery(GET_ZOMBIES,{manual:true});
+    const  { refetch}  = useQuery(GET_ZOMBIES,{manual:true});
     const [onMoveHandler] = useMutation(UPDATE_ZOMBIES);
 
 
@@ -36,20 +35,15 @@ const onMove=(location)=>{
  
     onMoveHandler({ variables: { id:parseInt(getId),location:location.toString()}})
     .then((response)=>{
-       // console.log('success !! '+response.data);
         refetch().then((fetchresponse)=>{
-            //console.log('fetch !! '+fetchresponse.data.zombies);
-            context.setZombies([...fetchresponse.data.zombies])
-
+          
+            dispatch({type:'GETALL_ZOMBIES',data:[...fetchresponse.data.zombies]})
         })
         showModal(false);
     }).catch((error)=>{
         Alert.alert(error)
     })
         
-
-
-   
 
 }
 
@@ -75,7 +69,7 @@ return(
 <View style={{flex:1}}>
 
 <FlatList
-data={context.zombies.filter((value)=>{return value.zombieLocation.toLowerCase().match(facility.toLowerCase())})}
+data={zombies.filter((value)=>{return value.zombieLocation.toLowerCase().match(facility.toLowerCase())})}
 keyExtractor={(item) => item.id}
 renderItem={renderItem}/>
 

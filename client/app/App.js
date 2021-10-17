@@ -5,6 +5,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native'; // Version can be specified in package.json
 import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
 import {UserProvider} from './context/userContext';
+import {AppContextProvider} from './context/AppContext';
 import Main from './src/Main';
 import List from './src/List';
 import { ApolloProvider } from "react-apollo";
@@ -12,14 +13,15 @@ import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 
 
-const client = new ApolloClient({ uri: 'http://YOURIPADDRESS:4800/graphql' });
+const client = new ApolloClient({ uri: 'http://127.0.0.1:4800/graphql' });
 
 
 const App=()=>{
     const Stack = createStackNavigator();
 
     return(
-  <UserProvider>
+      <AppContextProvider>
+      <UserProvider>
     <ApolloProvider client={client}>
         <NavigationContainer>
         <Stack.Navigator initialRouteName={"Main"} 
@@ -44,6 +46,7 @@ const App=()=>{
         </NavigationContainer>
         </ApolloProvider>
         </UserProvider>
+        </AppContextProvider>
     )
 
 

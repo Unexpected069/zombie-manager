@@ -1,36 +1,27 @@
 
 import React ,{useEffect,useContext, useState}from 'react';
 import { StyleSheet,View ,Text,ActivityIndicator,TouchableOpacity, Alert} from "react-native";
-
-import {Colors,} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import { ApolloProvider, Query, useQuery } from "react-apollo";
-import UserContext from '../context/userContext';
+import AppContext from '../context/AppContext';
 import { zombiesQuaratineLocation } from '../data/dummydata';
 import { GET_ZOMBIES } from '../data/api';
 
 
 
 
-
-
-
-
 const Main=({navigation})=>{
-   // const getQuarantineFacilities = useQuery(GET_QUARANTINE_FACILITIES);
-const context=useContext(UserContext);
-
-const {loading,error,data,refetch}= useQuery(GET_ZOMBIES,{manual:true});
-const [quarantineCount,setQuarantineCount]=useState([]);
-
-const countOccurrences = (arr, val) => arr.reduce((a, v) => (v.zombieLocation === val ? a + 1 : a), 0)
+    const {zombies,dispatch}=useContext(AppContext);
+    const {loading,error,data,refetch}= useQuery(GET_ZOMBIES,{manual:true});
+    const [quarantineCount,setQuarantineCount]=useState([]);
+    const countOccurrences = (arr, val) => arr.reduce((a, v) => (v.zombieLocation === val ? a + 1 : a), 0)
             
 
     useEffect(()=>{
          
         refetch().then((responseData)=>{
-          console.log(Object.keys(responseData.data))
-           context.setZombies([...responseData.data.zombies])
-
+        console.log(responseData.data.zombies)
+           dispatch({type:'GETALL_ZOMBIES',data:[...responseData.data.zombies]})
         })
         .catch((error)=>{
             Alert.alert(error)
@@ -44,21 +35,21 @@ const countOccurrences = (arr, val) => arr.reduce((a, v) => (v.zombieLocation ==
 
     },[])
 
-    
-    useEffect(()=>{
-        if(context.zombies.length>0){
-            setQuarantineCount([]);
-        zombiesQuaratineLocation.map((item)=>{   
-           // console.log(countOccurrences(context.zombies, item.quarantineLocation));    
-            setQuarantineCount(arr=>[...arr,{
-                    location:item.quarantineLocation,
-                    count:countOccurrences(context.zombies, item.quarantineLocation)
-                }])
-             
-            })
-        }
 
-    },[context.zombies])
+
+    useEffect(()=>{
+      if(zombies){
+     console.log('zombies '+Object.keys(zombies))
+    setQuarantineCount([]);
+      zombies.map((item)=>{   
+         setQuarantineCount(arr=>[...arr,{
+                 location:item.zombieLocation,
+                 count:countOccurrences(zombies, item.zombieLocation)
+             }])
+          
+         })
+      }
+    },[zombies])
     
 
 const Section =({onPress,quarantineFacilitiesCount})=>{
