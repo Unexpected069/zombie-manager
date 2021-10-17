@@ -7,6 +7,20 @@ We've got the zombies under control, but we need to keep track of them. That's w
 
 To run this project, you need to add the back-end and front-end dependencies. In the root of the project server, run the following command:
 
+Navigate to the server directory
+
+$ cd client
+
+and run the following command:
+
+$ npm install
+
+To run the server
+
+$ npm start
+
+=======================================
+
 Navigate to the client directory
 
 $ cd client
